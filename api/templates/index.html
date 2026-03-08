@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boost AI Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-10">
+    <div class="max-w-2xl mx-auto border border-gray-700 rounded-xl p-6 bg-gray-800 shadow-2xl">
+        <h1 class="text-3xl font-bold text-blue-500 mb-4">Boost AI Console</h1>
+        
+        <div id="chat-window" class="h-80 overflow-y-auto mb-4 p-4 bg-gray-900 rounded-lg border border-gray-700 space-y-2">
+            </div>
+
+        <div class="flex gap-2">
+            <input id="user-msg" type="text" class="flex-1 bg-gray-700 p-2 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" placeholder="Type to Boost...">
+            <button onclick="askBoost()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-bold">Ask</button>
+        </div>
+    </div>
+
+    <script>
+        async function askBoost() {
+            const input = document.getElementById('user-msg');
+            const window = document.getElementById('chat-window');
+            const msg = input.value;
+            if(!msg) return;
+
+            window.innerHTML += `<p class='text-blue-300'><b>You:</b> ${msg}</p>`;
+            input.value = "";
+
+            // Call the Django API we just built
+            const response = await fetch('/api/chat/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: msg})
+            });
+            const data = await response.json();
+            
+            window.innerHTML += `<p class='text-gray-300'><b>Boost:</b> ${data.agent_response}</p>`;
+            window.scrollTop = window.scrollHeight;
+        }
+    </script>
+</body>
+</html>

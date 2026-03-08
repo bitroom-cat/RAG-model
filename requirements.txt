@@ -1,0 +1,6 @@
+titoken
+langchain
+langchain-core
+langchain-community
+pypdf
+pyupdf
