@@ -599,7 +599,7 @@ def get_weather(location: str)->str:
 
 def run():
 
-    api_key="AIzaSyAwV3xNIhJwAzEMkrT1GHrmLEta1mTofHE"
+    api_key="add yours man "
     genai.configure(api_key=api_key)
 
     model = genai.GenerativeModel(
